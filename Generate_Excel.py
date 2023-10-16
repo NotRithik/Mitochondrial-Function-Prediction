@@ -601,6 +601,7 @@ def Generate_Mito_Tables(dir):
         cc_pdList[k].to_csv(savedir + "/cc_Table" + name + ".csv")
         pos_pdList[k].to_csv(savedir + "/point_Table" + name + ".csv")
         ele_pdList[k].to_csv(savedir + "/element_Table" + name + ".csv")
+        node_pdList[k].to_csv(savedir + "/node_Table" + name + ".csv")
         # complete_df[k].to_csv(savedir + "/complete_Table" + name + ".csv")
 
         # make folder_name the first column
@@ -643,7 +644,6 @@ def Generate_Mito_Tables(dir):
         # fullLit = calculate_coeff_of_variance(fullLit)
         fullLit2.to_csv(folder_dir[k] + "/full_Table_" + os.path.dirname(main_folder_dir[0]).split('/')[-1] + folder_name + ".csv")
 
-
             #'/home/mitosim2/BIRATAL/Tcdd1s_subsetted'
 
 
@@ -682,6 +682,8 @@ def Generate_Mito_Tables(dir):
     # fullLit = calculate_coeff_of_variance(fullLit)
     fullLit.to_csv(main_folder_dir + "/full_Table_" + os.path.dirname(main_folder_dir[0]).split('/')[-1] + ".csv")
     print("csv File generated")
+    fullNode = pd.concat(nodepd)
+    fullNode.to_csv(main_folder_dir + "/full_node_Table_" + os.path.dirname(main_folder_dir[0]).split('/')[-1] + ".csv")
     return alllist, pos_pdList, cc_pdList, node_pdList, fullLit
 
 def main():
