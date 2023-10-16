@@ -506,7 +506,7 @@ def Generate_Mito_Tables(dir):
 
         element['folder_name'] = folder_name
         position['folder_name'] = folder_name
-        node_pos['folder_name'] = folder_name
+        # node_pos['folder_name'] = folder_name
         mitoTable['folder_name'] = folder_name
         element['element_Volume_Voxel'] = element['element_length_(um)'] * element['element_average_width']
 
@@ -682,7 +682,7 @@ def Generate_Mito_Tables(dir):
     # fullLit = calculate_coeff_of_variance(fullLit)
     fullLit.to_csv(main_folder_dir + "/full_Table_" + os.path.dirname(main_folder_dir[0]).split('/')[-1] + ".csv")
     print("csv File generated")
-    fullNode = pd.concat(nodepd)
+    fullNode = pd.concat(node_pdList)
     fullNode.to_csv(main_folder_dir + "/full_node_Table_" + os.path.dirname(main_folder_dir[0]).split('/')[-1] + ".csv")
     return alllist, pos_pdList, cc_pdList, node_pdList, fullLit
 
