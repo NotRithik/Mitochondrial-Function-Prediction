@@ -130,7 +130,7 @@ def Mitograph_Element_Table(position):
     for i in range(max(position['line_id'])+1):
         cc = position.loc[position.line_id == i]
         coords = list(zip(cc['x'], cc['y'], cc['z']))
-        a = pd.DataFrame([[i, get_distance(coords), cc['width_(um)'].mean(), cc['pixel_intensity_488'].mean(), cc['pixel_intensity_405'].mean(), cc['pixel_intensity_555']]], columns=['line_id', 'element_length_(um)', 'element_average_width', 'element_pixel_intensity_488', 'element_pixel_intensity_405', 'element_pixel_intensity_555'])
+        a = pd.DataFrame([[i, get_distance(coords), cc['width_(um)'].mean(), cc['pixel_intensity_488'].mean(), cc['pixel_intensity_405'].mean(), cc['pixel_intensity_555'].mean()]], columns=['line_id', 'element_length_(um)', 'element_average_width', 'element_pixel_intensity_488', 'element_pixel_intensity_405', 'element_pixel_intensity_555'])
         # a = pd.DataFrame([[i, get_distance(coords), cc['width_(um)'].mean(), cc['pixel_intensity_488'].mean(), cc['pixel_intensity_405'].mean()]], columns=['line_id', 'element_length_(um)', 'element_average_width', 'element_pixel_intensity_488_width', 'element_pixel_intensity_405'])
 
         
