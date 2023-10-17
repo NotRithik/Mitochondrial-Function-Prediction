@@ -506,7 +506,7 @@ def Generate_Mito_Tables(dir):
 
         element['folder_name'] = folder_name
         position['folder_name'] = folder_name
-        # node_pos['folder_name'] = folder_name
+        node_pos['folder_name'] = folder_name
         mitoTable['folder_name'] = folder_name
         element['element_Volume_Voxel'] = element['element_length_(um)'] * element['element_average_width']
 
