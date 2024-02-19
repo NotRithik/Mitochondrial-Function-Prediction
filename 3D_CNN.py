@@ -74,7 +74,7 @@ def update_image_mapping_with_ratios(image_mapping, csv_file):
     # Iterate over the rows of the DataFrame
     for index, row in ratios_df.iterrows():
         image_name = row['file_name'].split('.')[0]  # Assuming the file name includes the extension '.tif'
-        ratio = row['element_pixel_intensity_405_488_ratio']
+        ratio = row['cc_pixel_intensity_ratio']
         
         # Update the ratio in the image_mapping if the image name exists
         if image_name in image_mapping:
