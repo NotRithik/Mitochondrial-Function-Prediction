@@ -23,6 +23,7 @@ element_Volume_Voxel
 element_average_width
 element_connectivity_y
 element_length_(um)
+element_pixel_intensity_488
 folder_name_y
 line_id
 matching_index
@@ -52,7 +53,6 @@ y_pixel
 y_x
 z_pixel
 z_x
-element_pixel_intensity_405_488_ratio
 Dim 1
 Dim 2
 Dim 3
