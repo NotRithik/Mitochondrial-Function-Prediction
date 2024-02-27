@@ -52,7 +52,7 @@ y_pixel
 y_x
 z_pixel
 z_x
-element_pixel_intensity_405_488_ratio
+cc_pixel_intensity_405_488_ratio
 Dim 1
 Dim 2
 Dim 3
