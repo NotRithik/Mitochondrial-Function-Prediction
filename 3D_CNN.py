@@ -332,7 +332,7 @@ def plot_error_frequency(y_pred, y_test, classifier_title, rounding):
     plt.show()
 
 def calculate_accuracy(y_test, y_pred, rounding):
-    y_test = y_test.values
+    y_test = y_test
     rounding = rounding//2
     # print(y_pred)
     assert(len(y_test) == len(y_pred))
@@ -473,8 +473,8 @@ with torch.no_grad():
         y_preds.extend(outputs.view(-1).cpu().numpy())
         y_trues.extend(ratios.view(-1).cpu().numpy())
 
-y_preds = np.array(y_preds)
-y_trues = np.array(y_trues)
+y_preds = np.rint(np.array(y_preds)).astype(int)
+y_trues = np.rint(np.array(y_trues)).astype(int)
 
 # Use the provided functions to analyze the model's performance
 plot_error_frequency(y_preds, y_trues, "3D CNN", 50)
