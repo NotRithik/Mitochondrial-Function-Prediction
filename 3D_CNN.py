@@ -82,16 +82,16 @@ def update_image_mapping_with_ratios(image_mapping, csv_file):
     # Iterate over the rows of the DataFrame
     for index, row in ratios_df.iterrows():
         image_name = row['file_name'].split('.')[0]  # Assuming the file name includes the extension '.tif'
-        ratio = row['element_pixel_intensity_405_488_ratio']
+        ratio = row['cc_pixel_intensity_405_488_ratio']
         
         # Update the ratio in the image_mapping if the image name exists
         if image_name in image_mapping:
             image_mapping[image_name]['ratio'] = ratio
 
     # Filter the image_mapping to keep only those entries that are listed in the CSV file
-    image_mapping = {key: value for key, value in image_mapping.items() if key in csv_image_names}
+    new_image_mapping = {key: value for key, value in image_mapping.items() if key in csv_image_names}
 
-    return image_mapping
+    return new_image_mapping
 
 class Simple3DCNN(nn.Module):
     def __init__(self, in_channels=1, init_features=32, num_classes=1):
@@ -436,23 +436,27 @@ model = Simple3DCNN()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 criterion = nn.MSELoss()
 
+# Create the dataset and data loader
+directory = "./Images_Of_Networks/tiff"
+image_mapping = create_image_mapping(directory)
+csv_file = "./imageNames_ratios.csv"
+train_csv_file = "./imageNames_ratios_train.csv"
+test_csv_file = "./imageNames_ratios_test.csv"
+image_mapping = update_image_mapping_with_ratios(image_mapping, csv_file)
+# train_mapping, test_mapping = train_test_split_dataset(image_mapping)
+train_mapping = update_image_mapping_with_ratios(image_mapping, train_csv_file)
+test_mapping = update_image_mapping_with_ratios(image_mapping, test_csv_file)
+train_dataset = ImageRatioDataset(train_mapping)
+test_dataset = ImageRatioDataset(test_mapping)
+
+# Create data loaders
+train_loader = DataLoader(train_dataset, batch_size=4, shuffle=True)
+test_loader = DataLoader(test_dataset, batch_size=4, shuffle=False)
+
 if os.path.exists(weights_path) and load_existing_weights:
     model.load_state_dict(torch.load(weights_path))
     print("Loaded existing model weights from '3D_CNN.pth'.")
 else:
-    # Create the dataset and data loader
-    directory = "./Images_Of_Networks/tiff"
-    image_mapping = create_image_mapping(directory)
-    csv_file = "./imageNames_ratios.csv"
-    image_mapping = update_image_mapping_with_ratios(image_mapping, csv_file)
-    train_mapping, test_mapping = train_test_split_dataset(image_mapping)
-    train_dataset = ImageRatioDataset(train_mapping)
-    test_dataset = ImageRatioDataset(test_mapping)
-
-    # Create data loaders
-    train_loader = DataLoader(train_dataset, batch_size=4, shuffle=True)
-    test_loader = DataLoader(test_dataset, batch_size=4, shuffle=False)
-
     # Call the training function
     train_and_evaluate_model(model, train_loader, test_loader, optimizer, criterion)
 
