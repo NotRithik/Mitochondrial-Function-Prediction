@@ -443,6 +443,7 @@ csv_file = "./imageNames_ratios.csv"
 train_csv_file = "./imageNames_ratios_train.csv"
 test_csv_file = "./imageNames_ratios_test.csv"
 image_mapping = update_image_mapping_with_ratios(image_mapping, csv_file)
+dataset = ImageRatioDataset(image_mapping)
 # train_mapping, test_mapping = train_test_split_dataset(image_mapping)
 train_mapping = update_image_mapping_with_ratios(image_mapping, train_csv_file)
 test_mapping = update_image_mapping_with_ratios(image_mapping, test_csv_file)
@@ -450,11 +451,13 @@ train_dataset = ImageRatioDataset(train_mapping)
 test_dataset = ImageRatioDataset(test_mapping)
 
 # Create data loaders
+dataset_loader = DataLoader(dataset, batch_size=4, shuffle=False)
 train_loader = DataLoader(train_dataset, batch_size=4, shuffle=True)
 test_loader = DataLoader(test_dataset, batch_size=4, shuffle=False)
 
 if os.path.exists(weights_path) and load_existing_weights:
     model.load_state_dict(torch.load(weights_path))
+    model = model.to(device)
     print("Loaded existing model weights from '3D_CNN.pth'.")
 else:
     # Call the training function
@@ -464,7 +467,10 @@ else:
     print(f"Model weights saved to '{weights_path}' after training.")
 
 # Proceed with the rest of the work
-model.eval()
+print("Exporting feature vectors")
+export_feature_vectors(model, dataset_loader, "./image_feature_vectors.csv")
+
+print("Proceeding with rest of the graphing...")
 y_preds, y_trues = [], []
 with torch.no_grad():
     for ((data, ratios), _) in train_loader:
