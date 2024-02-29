@@ -178,4 +178,4 @@ Dim 125
 Dim 126
 Dim 127
 Dim 128
-cc_pixel_intensity_405_488_ratio
+y

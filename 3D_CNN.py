@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import plotly.graph_objects as go
 
-load_existing_weights = True
+load_existing_weights = False
 weights_path = "3D_CNN.pth"
 
 device = torch.device('cuda:0')  if torch.cuda.is_available() else torch.device('mps:0') if torch.backends.mps.is_available() else torch.device('cpu')
@@ -145,8 +145,8 @@ def train_model_regression(model, optimizer, criterion, data_loader, epochs=10, 
 
             running_loss += loss.item()
             # if batch_idx % 10 == 9:  # print every 10 mini-batches
-            if batch_idx % 1 == 0: # print every mini-batch
-                print('[%d, %5d] loss: %.3f' %
+            if True: #batch_idx % 1 == 0: # print every mini-batch
+                print('[Epoch %d, Batch %5d] loss: %.3f' %
                       (epoch + 1, batch_idx + 1, running_loss / 10))
                 running_loss = 0.0
 
@@ -234,8 +234,10 @@ def train_and_evaluate_model(model, train_loader, test_loader, optimizer, criter
     model.to(device)
     train_losses = []
     test_losses = []
+    print("Starting to train model...")
 
     for epoch in range(epochs):
+        print("Epoch:", epoch)
         model.train()
         train_loss = 0.0
         for ((data, ratios), _) in train_loader:
@@ -461,7 +463,7 @@ if os.path.exists(weights_path) and load_existing_weights:
     print("Loaded existing model weights from '3D_CNN.pth'.")
 else:
     # Call the training function
-    train_and_evaluate_model(model, train_loader, test_loader, optimizer, criterion)
+    train_and_evaluate_model(model, train_loader, test_loader, optimizer, criterion, epochs=100)
 
     torch.save(model.state_dict(), weights_path)
     print(f"Model weights saved to '{weights_path}' after training.")
