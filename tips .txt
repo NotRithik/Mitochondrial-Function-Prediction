@@ -1,0 +1,16 @@
+tips: 
+
+One of the most imporatnt parts in data analysis is experience in working with different datasets
+
+Organizing a workshop where the students are taught basic techniques in data analysis, such as plotting graphs, regression, and using ideas like mean, mode, median, to create interpretable results. 
+
+Have a crash course on the most important topics, such as basic linear algebra, what is the goal of data analyses, drawing meaningful conclusions from data, etc. 
+
+Have a mock project which is very short, so that they gain experience doing these operations. As a  mock project is the best way to learn 
+
+The most imp thing for data driven things is practice, and experience in the programming language/software you are using. So crash courses on that can help or workshops. 
+
+Talking with peers who have the same ideas and such can be very helpful as well, so group the environmental-data ppl together and have them work together to figure stuff out, and the econ-data ppl in another group etc. 
+
+Many of them have learned several concepts, like the Grahm Scmitt, but haven't used it. You can focus on actually using topics that you have learned before now. 
+
